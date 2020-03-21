@@ -1,0 +1,7 @@
+name: LiteBansBridge
+version: 1.1
+main: be.woutzah.litebansbridge.LiteBansBridge
+api-version: 1.15
+authors: [Woutzah]
+description: A bridge between litebans and discord!
+depend: [LiteBans, DiscordSRV]
