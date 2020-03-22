@@ -11,6 +11,8 @@
 # +---------------------------------------------------------------------------------+ #
 #######################################################################################
 
+#NOTE: Discord accounts/minecraft accounts need to be linked (with DiscordSRV) in order for this plugin to work.
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                 General Settings                     | #
@@ -27,44 +29,44 @@ stafflog-textchannel-id: "moderation-log"
 #registered in the DiscordSRV config!
 dicord-chat-warnings:
   banned:
-    - '**---[ You are still banned on MilkyMC! ]---**\n'
+    - '**---[ You are still banned on ServerName! ]---**\n'
     - 'You can **not** chat in the discord!\n'
     - 'appeal at **appeal.milkymc.net**\n'
-    - '**------------------------------------------**\n'
+    - '**---------------------------------------------**\n'
   muted:
-    - '**---[ You are still muted on MilkyMC! ]---**\n'
+    - '**---[ You are still muted on ServerName! ]---**\n'
     - 'You can **not** chat in the discord!\n'
-    - '**-----------------------------------------**\'
+    - '**--------------------------------------------**\'
 
 #These are warning messages that are sent in a PM to the moderated player
 #when a moderation is issued ingame.
 litebans-entry-warnings:
   permabanned:
-    - '**---[ You have been permabanned on MilkyMC! ]---**\n'
+    - '**---[ You have been permabanned on ServerName! ]---**\n'
     - 'You have been **permabanned** by **<issuer>** for **<reason>**\n'
     - 'appeal at **appeal.milkymc.net**\n'
-    - '**-----------------------------------------------**\n'
+    - '**--------------------------------------------------**\n'
   banned:
-    - '**---[ You have been banned on MilkyMC! ]---**\n'
+    - '**---[ You have been banned on ServerName! ]---**\n'
     - 'You have been banned by **<issuer>** for **<reason>** untill **<untill>**\n'
     - 'appeal at **appeal.milkymc.net**\n'
-    - '**------------------------------------------**\n'
+    - '**---------------------------------------------**\n'
   permamuted:
-    - '**---[ You have been permamuted on MilkyMC! ]---**\n'
+    - '**---[ You have been permamuted on ServerName! ]---**\n'
     - 'You have been permamuted by **<issuer>** for **<reason>**\n'
-    - '**-----------------------------------------**\n'
+    - '**-------------------------------------------------**\n'
   muted:
-    - '**---[ You have been muted on MilkyMC! ]---**\n'
+    - '**---[ You have been muted on ServerName ]---**\n'
     - 'You have been muted by **<issuer>** for **<reason>** untill **<untill>**\n'
-    - '**-----------------------------------------**\n'
+    - '**-------------------------------------------**\n'
   warned:
-    - '**---[ You have been warned on MilkyMC! ]---**\n'
+    - '**---[ You have been warned on ServerName! ]---**\n'
     - 'You have been warned by **<issuer>** for **<reason>**\n'
-    - '**------------------------------------------**\n'
+    - '**---------------------------------------------**\n'
   kicked:
-    - '**---[ You have been kicked from MilkyMC! ]---**\n'
+    - '**---[ You have been kicked from ServerName! ]---**\n'
     - 'You have been kicked by **<issuer>** for **<reason>**\n'
-    - '**------------------------------------------**\n'
+    - '**-----------------------------------------------**\n'
 
 #These are warning messages that are sent to the stafflog textchannel
 #when a moderation is issued on your server.

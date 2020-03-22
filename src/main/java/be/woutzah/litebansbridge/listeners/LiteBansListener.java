@@ -37,11 +37,11 @@ public class LiteBansListener {
                                 if (entry.getDateEnd() == -1) {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
                                             plugin.getMessageManager().getStaffWarnPermaBanned(playerName, issuerName, entry.getReason()));
+                                    plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user)));
                                 } else {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
                                             plugin.getMessageManager().getStaffWarnBanned(playerName, issuerName, entry.getReason(), new Date(entry.getDateEnd()).toString()));
                                 }
-                                plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user)));
                                 break;
                             case "mute":
                                 notification = new Notification(entry.getReason(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.muted);
