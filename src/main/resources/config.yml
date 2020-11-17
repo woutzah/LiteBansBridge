@@ -21,13 +21,17 @@
 
 #Paste your discord server id in here
 discordserver-id: "689806948362747979"
+#enable/disable logging to a stafflog on discord
+enable-stafflog: true
+#enables/disables muting when a banned/muted player tries to chat in your discordserver
+enable-discord-punishments: true
 #This is the channel all moderation performed tasks are broadcasted to
-stafflog-textchannel-id: "moderation-log"
+stafflog-textchannel-id: "690200755080134717"
 
 #These are warning messages that are sent in a PM to the moderated player
 #when a players tries typing in your discord server. Make sure al channels are
 #registered in the DiscordSRV config!
-dicord-chat-warnings:
+discord-chat-warnings:
   banned:
     - '**---[ You are still banned on ServerName! ]---**\n'
     - 'You can **not** chat in the discord!\n'
@@ -48,7 +52,7 @@ litebans-entry-warnings:
     - '**--------------------------------------------------**\n'
   banned:
     - '**---[ You have been banned on ServerName! ]---**\n'
-    - 'You have been banned by **<issuer>** for **<reason>** untill **<untill>**\n'
+    - 'You have been banned by **<issuer>** for **<reason>** until **<until>**\n'
     - 'appeal at **appeal.milkymc.net**\n'
     - '**---------------------------------------------**\n'
   permamuted:
@@ -57,7 +61,7 @@ litebans-entry-warnings:
     - '**-------------------------------------------------**\n'
   muted:
     - '**---[ You have been muted on ServerName ]---**\n'
-    - 'You have been muted by **<issuer>** for **<reason>** untill **<untill>**\n'
+    - 'You have been muted by **<issuer>** for **<reason>** until **<until>**\n'
     - '**-------------------------------------------**\n'
   warned:
     - '**---[ You have been warned on ServerName! ]---**\n'
@@ -77,7 +81,7 @@ stafflog-entry-warnings:
     - '**-----------------------------------------------**\n'
   banned:
     - '**-----------------------------------------------**\n'
-    - '**<player>** has been banned by **<issuer>** for **<reason>** untill **<untill>**\n'
+    - '**<player>** has been banned by **<issuer>** for **<reason>** until **<until>**\n'
     - '**-----------------------------------------------**\n'
   permamuted:
     - '**-----------------------------------------------**\n'
@@ -85,7 +89,7 @@ stafflog-entry-warnings:
     - '**-----------------------------------------------**\n'
   muted:
     - '**-----------------------------------------------**\n'
-    - '**<player>** has been muted by **<issuer>** for **<reason>** untill **<untill>**\n'
+    - '**<player>** has been muted by **<issuer>** for **<reason>** until **<until>**\n'
     - '**-----------------------------------------------**\n'
   warned:
     - '**-----------------------------------------------**\n'

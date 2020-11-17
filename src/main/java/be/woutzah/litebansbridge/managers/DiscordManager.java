@@ -4,18 +4,19 @@ import be.woutzah.litebansbridge.LiteBansBridge;
 import be.woutzah.litebansbridge.notifications.Notification;
 import github.scarsz.discordsrv.DiscordSRV;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.Guild;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import github.scarsz.discordsrv.dependencies.jda.api.entities.User;
 
 import java.util.UUID;
 
 public class DiscordManager {
 
-    private LiteBansBridge plugin;
-    private String stafflogId;
+    private final String stafflogId;
+    private final boolean enabledLogging;
 
     public DiscordManager(LiteBansBridge plugin) {
-        this.plugin = plugin;
         this.stafflogId = plugin.getConfig().getString("stafflog-textchannel-id");
+        this.enabledLogging = plugin.getConfig().getBoolean("enable-stafflog");
     }
 
     public boolean userIsLinked(String id) {
@@ -43,9 +44,12 @@ public class DiscordManager {
     }
 
     public void sendMessageToStaffLog(String message){
-        getGuild().getTextChannelsByName(stafflogId,true)
-                .get(0)
-                .sendMessage(message).queue();
+        if (!enabledLogging){
+            return;
+        }
+        TextChannel staffLogChannel = getGuild().getTextChannelById(stafflogId);
+        if  (staffLogChannel == null) return;
+        staffLogChannel.sendMessage(message).queue();
     }
 
     private void openAndSend(User user, String message){
@@ -54,7 +58,7 @@ public class DiscordManager {
             channel.sendMessage(message).queue();
         });
     }
-
+    
     private void openAndSend(User user, Notification notification){
         user.openPrivateChannel().queue((channel) ->
         {

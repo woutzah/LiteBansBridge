@@ -11,14 +11,14 @@ import java.util.UUID;
 public class Notification {
 
     public static LiteBansBridge plugin;
-    private String reason;
+    private final String reason;
     private Date untilReleased;
-    private Player issuer;
-    private ModerationType moderationType;
+    private final Player issuer;
+    private final ModerationType moderationType;
 
     public Notification(String reason, Long untilReleased, String issuer, ModerationType moderationType) {
         this.reason = reason;
-        this.untilReleased = untilReleased == -1? null : new Date(untilReleased);
+        this.untilReleased = untilReleased == -1 ? null : new Date(untilReleased);
         this.issuer = issuer.equalsIgnoreCase("console") ? null : Bukkit.getPlayer(UUID.fromString(issuer));
         this.moderationType = moderationType;
     }

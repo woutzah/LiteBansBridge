@@ -18,6 +18,7 @@ public class LiteBansBridge extends JavaPlugin {
     private LiteBansListener liteBansListener;
     private LiteBansManager liteBansManager;
     private MessageManager messageManager;
+    private boolean discordPunishEnabled;
 
     @Override
     public void onEnable() {
@@ -34,6 +35,7 @@ public class LiteBansBridge extends JavaPlugin {
     }
 
     public void init(){
+        this.discordPunishEnabled = this.getConfig().getBoolean("enable-discord-punishments");
         this.discordListener = new DiscordListener(this);
         this.discordManager = new DiscordManager(this);
         this.liteBansListener = new LiteBansListener(this);
@@ -74,4 +76,8 @@ public class LiteBansBridge extends JavaPlugin {
     }
 
     public MessageManager getMessageManager(){return messageManager;}
+
+    public boolean getDiscordPunishEnabled() {
+        return discordPunishEnabled;
+    }
 }

@@ -26,8 +26,8 @@ public class MessageManager {
     public MessageManager(LiteBansBridge plugin) {
         this.plugin = plugin;
         FileConfiguration config = plugin.getConfig();
-        this.discordWarnBanned = config.getStringList("dicord-chat-warnings.banned");
-        this.discordWarnMuted = config.getStringList("dicord-chat-warnings.muted");
+        this.discordWarnBanned = config.getStringList("discord-chat-warnings.banned");
+        this.discordWarnMuted = config.getStringList("discord-chat-warnings.muted");
         this.litebansWarnPermaBanned = config.getStringList("litebans-entry-warnings.permabanned");
         this.litebansWarnBanned = config.getStringList("litebans-entry-warnings.banned");
         this.litebansWarnPermaMuted = config.getStringList("litebans-entry-warnings.permamuted");
@@ -69,13 +69,13 @@ public class MessageManager {
         return sb.toString();
     }
 
-    public String getLitebansWarnBanned(String issuer, String reason, String untill){
+    public String getLitebansWarnBanned(String issuer, String reason, String until){
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnBanned) {
             sb.append(line.replace("\\n", "\n")
                     .replace("<issuer>",issuer)
                     .replace("<reason>",reason)
-                    .replace("<untill>",untill));
+                    .replace("<until>",until));
         }
         return sb.toString();
     }
@@ -90,13 +90,13 @@ public class MessageManager {
         return sb.toString();
     }
 
-    public String getLitebansWarnMuted(String issuer, String reason, String untill){
+    public String getLitebansWarnMuted(String issuer, String reason, String until){
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnMuted) {
             sb.append(line.replace("\\n", "\n")
                     .replace("<issuer>",issuer)
                     .replace("<reason>",reason)
-                    .replace("<untill>",untill));
+                    .replace("<until>",until));
         }
         return sb.toString();
     }
@@ -132,14 +132,14 @@ public class MessageManager {
         return sb.toString();
     }
 
-    public String getStaffWarnBanned(String name, String issuer, String reason, String untill){
+    public String getStaffWarnBanned(String name, String issuer, String reason, String until){
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnBanned) {
             sb.append(line.replace("\\n", "\n")
                     .replace("<issuer>",issuer)
                     .replace("<reason>",reason)
                     .replace("<player>", name)
-                    .replace("<untill>",untill));
+                    .replace("<until>",until));
         }
         return sb.toString();
     }
@@ -155,14 +155,14 @@ public class MessageManager {
         return sb.toString();
     }
 
-    public String getStaffWarnMuted(String name, String issuer, String reason, String untill){
+    public String getStaffWarnMuted(String name, String issuer, String reason, String until){
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnMuted) {
             sb.append(line.replace("\\n", "\n")
                     .replace("<issuer>",issuer)
                     .replace("<reason>",reason)
                     .replace("<player>", name)
-                    .replace("<untill>",untill));
+                    .replace("<until>",until));
         }
         return sb.toString();
     }
