@@ -32,7 +32,7 @@ public class LiteBansListener {
                     String issuerName = getPlayerName(entry.getExecutorUUID());
                         switch (entry.getType()) {
                             case "ban":
-                                notification = new Notification(entry.getReason(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.banned);
+                                notification = new Notification(entry.getReason(), entry.getDateStart(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.banned);
                                 plugin.getDiscordManager().sendPrivateDiscordMessage(user, notification);
                                 if (entry.getDateEnd() == -1) {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
@@ -40,28 +40,28 @@ public class LiteBansListener {
                                     plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user)));
                                 } else {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
-                                            plugin.getMessageManager().getStaffWarnBanned(playerName, issuerName, entry.getReason(), new Date(entry.getDateEnd()).toString()));
+                                            plugin.getMessageManager().getStaffWarnBanned(playerName, issuerName, entry.getReason(), entry.getDateStart(), entry.getDateEnd(), new Date(entry.getDateEnd()).toString()));
                                 }
                                 break;
                             case "mute":
-                                notification = new Notification(entry.getReason(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.muted);
+                                notification = new Notification(entry.getReason(), entry.getDateStart(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.muted);
                                 plugin.getDiscordManager().sendPrivateDiscordMessage(user, notification);
                                 if (entry.getDateEnd() == -1) {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
                                             plugin.getMessageManager().getStaffWarnPermaMuted(playerName, issuerName, entry.getReason()));
                                 }else {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
-                                            plugin.getMessageManager().getStaffWarnMuted(playerName, issuerName, entry.getReason(), new Date(entry.getDateEnd()).toString()));
+                                            plugin.getMessageManager().getStaffWarnMuted(playerName, issuerName, entry.getReason(), entry.getDateStart(), entry.getDateEnd(), new Date(entry.getDateEnd()).toString()));
                                 }
                                 break;
                             case "warn":
-                                notification = new Notification(entry.getReason(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.warned);
+                                notification = new Notification(entry.getReason(), entry.getDateStart(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.warned);
                                 plugin.getDiscordManager().sendPrivateDiscordMessage(user, notification);
                                 plugin.getDiscordManager().sendMessageToStaffLog(
                                         plugin.getMessageManager().getStaffWarnWarned(playerName, issuerName, entry.getReason()));
                                 break;
                             case "kick":
-                                notification = new Notification(entry.getReason(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.kicked);
+                                notification = new Notification(entry.getReason(), entry.getDateStart(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.kicked);
                                 plugin.getDiscordManager().sendPrivateDiscordMessage(user, notification);
                                 plugin.getDiscordManager().sendMessageToStaffLog(
                                         plugin.getMessageManager().getStaffWarnKicked(playerName, issuerName, entry.getReason()));

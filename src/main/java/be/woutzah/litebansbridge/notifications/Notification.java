@@ -12,13 +12,17 @@ public class Notification {
 
     public static LiteBansBridge plugin;
     private final String reason;
-    private Date untilReleased;
+    private final long dateStart;
+    private final long dateEnd;
+    private final Date untilReleased;
     private final Player issuer;
     private final ModerationType moderationType;
 
-    public Notification(String reason, Long untilReleased, String issuer, ModerationType moderationType) {
+    public Notification(String reason, long dateStart, long dateEnd, String issuer, ModerationType moderationType) {
         this.reason = reason;
-        this.untilReleased = untilReleased == -1 ? null : new Date(untilReleased);
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.untilReleased = dateEnd == -1 ? null : new Date(dateEnd);
         this.issuer = issuer.equalsIgnoreCase("console") ? null : Bukkit.getPlayer(UUID.fromString(issuer));
         this.moderationType = moderationType;
     }
@@ -30,13 +34,13 @@ public class Notification {
                 if (untilReleased == null) {
                     return plugin.getMessageManager().getLitebansWarnPermaBanned(checkIfConsole(issuer), reason);
                 } else {
-                    return plugin.getMessageManager().getLitebansWarnBanned(checkIfConsole(issuer), reason, untilReleased.toString());
+                    return plugin.getMessageManager().getLitebansWarnBanned(checkIfConsole(issuer), reason, dateStart, dateEnd, untilReleased.toString());
                 }
             case muted:
                 if (untilReleased == null) {
                     return plugin.getMessageManager().getLitebansWarnPermaMuted(checkIfConsole(issuer), reason);
                 }else{
-                    return plugin.getMessageManager().getLitebansWarnMuted(checkIfConsole(issuer), reason, untilReleased.toString());
+                    return plugin.getMessageManager().getLitebansWarnMuted(checkIfConsole(issuer), reason, dateStart, dateEnd, untilReleased.toString());
                 }
             case warned:
                 return plugin.getMessageManager().getLitebansWarnWarned(checkIfConsole(issuer), reason);
