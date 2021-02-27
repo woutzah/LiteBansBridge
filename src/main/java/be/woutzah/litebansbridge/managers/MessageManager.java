@@ -1,6 +1,8 @@
 package be.woutzah.litebansbridge.managers;
 
 import be.woutzah.litebansbridge.LiteBansBridge;
+import be.woutzah.litebansbridge.util.DateTime;
+import be.woutzah.litebansbridge.util.TimeUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -42,7 +44,7 @@ public class MessageManager {
         this.staffWarnKicked = config.getStringList("stafflog-entry-warnings.kicked");
     }
 
-    public String getDiscordWarnBanned(){
+    public String getDiscordWarnBanned() {
         StringBuilder sb = new StringBuilder();
         for (String line : this.discordWarnBanned) {
             sb.append(line.replace("\\n", "\n"));
@@ -50,7 +52,7 @@ public class MessageManager {
         return sb.toString();
     }
 
-    public String getDiscordWarnMuted(){
+    public String getDiscordWarnMuted() {
         StringBuilder sb = new StringBuilder();
         for (String line : this.discordWarnMuted) {
             sb.append(line.replace("\\n", "\n"));
@@ -59,140 +61,150 @@ public class MessageManager {
     }
 
 
-    public String getLitebansWarnPermaBanned(String issuer, String reason){
+    public String getLitebansWarnPermaBanned(String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnPermaBanned) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason));
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason));
         }
         return sb.toString();
     }
 
-    public String getLitebansWarnBanned(String issuer, String reason, String until){
+    public String getLitebansWarnBanned(String issuer, String reason, long start, long end, String until) {
         StringBuilder sb = new StringBuilder();
+        DateTime dateTime = TimeUtil.diffTimeToString(start, end);
         for (String line : this.litebansWarnBanned) {
-            sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
-                    .replace("<until>",until));
+            replaceLiteBansWarnStrings(issuer, reason, start, end, until, sb, dateTime, line);
         }
         return sb.toString();
     }
 
-    public String getLitebansWarnPermaMuted(String issuer, String reason){
+    public String getLitebansWarnPermaMuted(String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnPermaMuted) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason));
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason));
         }
         return sb.toString();
     }
 
-    public String getLitebansWarnMuted(String issuer, String reason, String until){
+    public String getLitebansWarnMuted(String issuer, String reason, long start, long end, String until) {
         StringBuilder sb = new StringBuilder();
+        DateTime dateTime = TimeUtil.diffTimeToString(start, end);
         for (String line : this.litebansWarnMuted) {
-            sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
-                    .replace("<until>",until));
+            replaceLiteBansWarnStrings(issuer, reason, start, end, until, sb, dateTime, line);
         }
         return sb.toString();
     }
 
-    public String getLitebansWarnWarned(String issuer, String reason){
+    public String getLitebansWarnWarned(String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnWarned) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason));
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason));
         }
         return sb.toString();
     }
 
-    public String getLitebansWarnKicked(String issuer, String reason){
+    public String getLitebansWarnKicked(String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.litebansWarnKicked) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason));
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason));
         }
         return sb.toString();
     }
 
-    public String getStaffWarnPermaBanned(String name, String issuer, String reason){
+    public String getStaffWarnPermaBanned(String name, String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnPermaBanned) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason)
                     .replace("<player>", name));
         }
         return sb.toString();
     }
 
-    public String getStaffWarnBanned(String name, String issuer, String reason, String until){
+    public String getStaffWarnBanned(String name, String issuer, String reason, long start, long end, String until) {
         StringBuilder sb = new StringBuilder();
+        DateTime dateTime = TimeUtil.diffTimeToString(start, end);
         for (String line : this.staffWarnBanned) {
-            sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
-                    .replace("<player>", name)
-                    .replace("<until>",until));
+            replaceStaffWarnStrings(name, issuer, reason, start, end, until, sb, dateTime, line);
         }
         return sb.toString();
     }
 
-    public String getStaffWarnPermaMuted(String name, String issuer, String reason){
+    public String getStaffWarnPermaMuted(String name, String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnPermaMuted) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason)
                     .replace("<player>", name));
         }
         return sb.toString();
     }
 
-    public String getStaffWarnMuted(String name, String issuer, String reason, String until){
+    public String getStaffWarnMuted(String name, String issuer, String reason, long start, long end, String until) {
         StringBuilder sb = new StringBuilder();
+        DateTime dateTime = TimeUtil.diffTimeToString(start, end);
         for (String line : this.staffWarnMuted) {
-            sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
-                    .replace("<player>", name)
-                    .replace("<until>",until));
+            replaceStaffWarnStrings(name, issuer, reason, start, end, until, sb, dateTime, line);
         }
         return sb.toString();
     }
 
-    public String getStaffWarnWarned(String name, String issuer, String reason){
+    public String getStaffWarnWarned(String name, String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnWarned) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason)
                     .replace("<player>", name));
         }
         return sb.toString();
     }
 
-    public String getStaffWarnKicked(String name, String issuer, String reason){
+    public String getStaffWarnKicked(String name, String issuer, String reason) {
         StringBuilder sb = new StringBuilder();
         for (String line : this.staffWarnKicked) {
             sb.append(line.replace("\\n", "\n")
-                    .replace("<issuer>",issuer)
-                    .replace("<reason>",reason)
+                    .replace("<issuer>", issuer)
+                    .replace("<reason>", reason)
                     .replace("<player>", name));
         }
         return sb.toString();
     }
 
+    private void replaceLiteBansWarnStrings(String issuer, String reason, long start, long end, String until, StringBuilder sb, DateTime dateTime, String line) {
+        sb.append(line.replace("\\n", "\n")
+                .replace("<issuer>", issuer)
+                .replace("<reason>", reason)
+                .replace("<days>", String.valueOf(dateTime.days))
+                .replace("<hours>", String.valueOf(dateTime.hours))
+                .replace("<minutes>", String.valueOf(dateTime.minutes))
+                .replace("<seconds>", String.valueOf(dateTime.seconds))
+                .replace("<start>", start + "")
+                .replace("<end>", end + "")
+                .replace("<until>", until + ""));
+    }
 
-
-
-
-
-
+    private void replaceStaffWarnStrings(String name, String issuer, String reason, long start, long end, String until, StringBuilder sb, DateTime dateTime, String line) {
+        sb.append(line.replace("\\n", "\n")
+                .replace("<issuer>", issuer)
+                .replace("<reason>", reason)
+                .replace("<player>", name)
+                .replace("<days>", String.valueOf(dateTime.days))
+                .replace("<hours>", String.valueOf(dateTime.hours))
+                .replace("<minutes>", String.valueOf(dateTime.minutes))
+                .replace("<seconds>", String.valueOf(dateTime.seconds))
+                .replace("<start>", start + "")
+                .replace("<end>", end + "")
+                .replace("<until>", until + ""));
+    }
 }
