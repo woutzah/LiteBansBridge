@@ -5,6 +5,7 @@ import be.woutzah.litebansbridge.util.DateTime;
 import be.woutzah.litebansbridge.util.TimeUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageManager {
@@ -189,9 +190,9 @@ public class MessageManager {
                 .replace("<hours>", dateTime.hours > 0 ? String.valueOf(dateTime.hours) : "")
                 .replace("<minutes>", dateTime.minutes > 0 ? String.valueOf(dateTime.minutes) : "")
                 .replace("<seconds>", dateTime.seconds > 0 ? String.valueOf(dateTime.seconds) : "")
-                .replace("<start>", start + "")
-                .replace("<end>", end + "")
-                .replace("<until>", until + ""));
+                .replace("<start>", new Date(start).toString())
+                .replace("<end>", new Date(end).toString())
+                .replace("<until>", until));
     }
 
     private void replaceStaffWarnStrings(String name, String issuer, String reason, long start, long end, String until, StringBuilder sb, DateTime dateTime, String line) {
@@ -203,8 +204,8 @@ public class MessageManager {
                 .replace("<hours>", dateTime.hours > 0 ? String.valueOf(dateTime.hours) : "")
                 .replace("<minutes>", dateTime.minutes > 0 ? String.valueOf(dateTime.minutes) : "")
                 .replace("<seconds>", dateTime.seconds > 0 ? String.valueOf(dateTime.seconds) : "")
-                .replace("<start>", start + "")
-                .replace("<end>", end + "")
-                .replace("<until>", until + ""));
+                .replace("<start>", new Date(start).toString())
+                .replace("<end>", new Date(end).toString())
+                .replace("<until>", until));
     }
 }
