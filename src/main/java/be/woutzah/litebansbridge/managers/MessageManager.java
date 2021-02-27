@@ -10,20 +10,20 @@ import java.util.List;
 public class MessageManager {
 
     private LiteBansBridge plugin;
-    private List<String> discordWarnBanned;
-    private List<String> discordWarnMuted;
-    private List<String> litebansWarnPermaBanned;
-    private List<String> litebansWarnBanned;
-    private List<String> litebansWarnPermaMuted;
-    private List<String> litebansWarnMuted;
-    private List<String> litebansWarnWarned;
-    private List<String> litebansWarnKicked;
-    private List<String> staffWarnPermaBanned;
-    private List<String> staffWarnBanned;
-    private List<String> staffWarnPermaMuted;
-    private List<String> staffWarnMuted;
-    private List<String> staffWarnWarned;
-    private List<String> staffWarnKicked;
+    private final List<String> discordWarnBanned;
+    private final List<String> discordWarnMuted;
+    private final List<String> litebansWarnPermaBanned;
+    private final List<String> litebansWarnBanned;
+    private final List<String> litebansWarnPermaMuted;
+    private final List<String> litebansWarnMuted;
+    private final List<String> litebansWarnWarned;
+    private final List<String> litebansWarnKicked;
+    private final List<String> staffWarnPermaBanned;
+    private final List<String> staffWarnBanned;
+    private final List<String> staffWarnPermaMuted;
+    private final List<String> staffWarnMuted;
+    private final List<String> staffWarnWarned;
+    private final List<String> staffWarnKicked;
 
     public MessageManager(LiteBansBridge plugin) {
         this.plugin = plugin;
