@@ -75,7 +75,9 @@ public class LiteBansBridge extends JavaPlugin {
         return liteBansManager;
     }
 
-    public MessageManager getMessageManager(){return messageManager;}
+    public MessageManager getMessageManager(){
+        return messageManager;
+    }
 
     public boolean getDiscordPunishEnabled() {
         return discordPunishEnabled;
