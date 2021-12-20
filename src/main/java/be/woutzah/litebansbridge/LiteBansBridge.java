@@ -36,11 +36,11 @@ public class LiteBansBridge extends JavaPlugin {
 
     public void init(){
         this.discordPunishEnabled = this.getConfig().getBoolean("enable-discord-punishments");
-        this.discordListener = new DiscordListener(this);
         this.discordManager = new DiscordManager(this);
-        this.liteBansListener = new LiteBansListener(this);
         this.liteBansManager = new LiteBansManager(this);
         this.messageManager = new MessageManager(this);
+        this.discordListener = new DiscordListener(this);
+        this.liteBansListener = new LiteBansListener(this);
         Notification.plugin = this;
     }
 
