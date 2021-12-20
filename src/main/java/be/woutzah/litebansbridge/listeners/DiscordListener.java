@@ -14,15 +14,19 @@ import java.util.UUID;
 
 public class DiscordListener implements Listener {
 
-    private final DiscordManager discordManager;
-    private final LiteBansManager liteBansManager;
-    private final MessageManager messageManager;
+    //private final DiscordManager discordManager;
+    //private final LiteBansManager liteBansManager;
+    //private final MessageManager messageManager;
+    private final LiteBansBridge plugin;
     private final boolean discordPunishEnabled;
     public DiscordListener(LiteBansBridge plugin) {
-        this.discordManager = plugin.getDiscordManager();
-        this.liteBansManager = plugin.getLiteBansManager();
-        this.messageManager = plugin.getMessageManager();
+        this.plugin = plugin;
         this.discordPunishEnabled = plugin.getDiscordPunishEnabled();
+
+        // Probably can delete later:
+        //this.discordManager = plugin.discordManager;
+        //this.liteBansManager = plugin.liteBansManager;
+        //this.messageManager = plugin.messageManager;
     }
 
 
@@ -30,15 +34,15 @@ public class DiscordListener implements Listener {
     public void afterMessageSend(DiscordGuildMessagePostProcessEvent event) {
         if (discordPunishEnabled) {
             User user = event.getAuthor();
-            if (discordManager.userIsLinked(user.getId())) {
-                UUID uuidUser = discordManager.getUUIDById(user.getId());
-                if (liteBansManager.getIsPlayerBanned(uuidUser)) {
+            if (this.plugin.getDiscordManager().userIsLinked(user.getId())) {
+                UUID uuidUser = this.plugin.getDiscordManager().getUUIDById(user.getId());
+                if (this.plugin.getLiteBansManager().getIsPlayerBanned(uuidUser)) {
                     event.getChannel().deleteMessageById(event.getMessage().getId()).queue();
-                    discordManager.sendPrivateDiscordMessage(user, messageManager.getDiscordWarnBanned());
+                    this.plugin.getDiscordManager().sendPrivateDiscordMessage(user, this.plugin.getMessageManager().getDiscordWarnBanned());
                     event.setCancelled(true);
-                } else if (liteBansManager.getIsPlayerMuted(uuidUser)) {
+                } else if (this.plugin.getLiteBansManager().getIsPlayerMuted(uuidUser)) {
                     event.getChannel().deleteMessageById(event.getMessage().getId()).queue();
-                    discordManager.sendPrivateDiscordMessage(user, messageManager.getDiscordWarnMuted());
+                    this.plugin.getDiscordManager().sendPrivateDiscordMessage(user, this.plugin.getMessageManager().getDiscordWarnMuted());
                     event.setCancelled(true);
                 }
             }
