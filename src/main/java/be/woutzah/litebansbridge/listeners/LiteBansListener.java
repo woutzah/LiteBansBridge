@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 public class LiteBansListener {
@@ -30,6 +32,8 @@ public class LiteBansListener {
                     User user = plugin.getDiscordManager().getUserById(discordId);
                     String playerName = getPlayerName(entry.getUuid());
                     String issuerName = getPlayerName(entry.getExecutorUUID());
+                    Timer kicktimer = new Timer(true);
+
                         switch (entry.getType()) {
                             case "ban":
                                 notification = new Notification(entry.getReason(), entry.getDateStart(), entry.getDateEnd(), entry.getExecutorUUID(), ModerationType.banned);
@@ -37,7 +41,19 @@ public class LiteBansListener {
                                 if (entry.getDateEnd() == -1) {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
                                             plugin.getMessageManager().getStaffWarnPermaBanned(playerName, issuerName, entry.getReason()));
-                                    plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user)));
+
+                                    // Creating a 1-second timer to delay the kicking,
+                                    // this is to avoid the user from being kicked before they can be messaged.
+                                    // As discord's api can be delayed sometimes.
+                                    kicktimer.schedule(new TimerTask()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user))).queue();
+                                        }
+                                    }, 1000);
+
                                 } else {
                                     plugin.getDiscordManager().sendMessageToStaffLog(
                                             plugin.getMessageManager().getStaffWarnBanned(playerName, issuerName, entry.getReason(), entry.getDateStart(), entry.getDateEnd(), new Date(entry.getDateEnd()).toString()));
