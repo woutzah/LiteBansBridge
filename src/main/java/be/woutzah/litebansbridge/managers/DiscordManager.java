@@ -54,16 +54,16 @@ public class DiscordManager {
 
     private void openAndSend(User user, String message){
         user.openPrivateChannel().queue((channel) ->
-        {
-            channel.sendMessage(message).queue();
-        });
+                channel.sendMessage(message).queue());
     }
     
     private void openAndSend(User user, Notification notification){
+
+        // Do nothing if the user can't be found.
+        if (user == null) return;
+
         user.openPrivateChannel().queue((channel) ->
-        {
-            channel.sendMessage(notification.toString()).queue();
-        });
+                channel.sendMessage(notification.toString()).queue());
     }
 
 
