@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class LiteBansListener {
 
-    private LiteBansBridge plugin;
+    private final LiteBansBridge plugin;
 
     public LiteBansListener(LiteBansBridge plugin) {
         this.plugin = plugin;
@@ -26,12 +26,16 @@ public class LiteBansListener {
         Events.get().register(new Events.Listener() {
             @Override
             public void entryAdded(Entry entry) {
-                if (plugin.getDiscordManager().userIsLinked(plugin.getDiscordManager().getIdByUUID(UUID.fromString(entry.getUuid())))) {
+                if (plugin.getDiscordManager().userIsLinked(plugin.getDiscordManager().getIdByUUID(UUID.fromString(Objects.requireNonNull(entry.getUuid()))))) {
                     Notification notification;
                     String discordId = plugin.getDiscordManager().getIdByUUID(UUID.fromString(entry.getUuid()));
+
+                    // If the banned player has not yet linked their account, we do nothing.
+                    if (discordId == null) return;
+
                     User user = plugin.getDiscordManager().getUserById(discordId);
                     String playerName = getPlayerName(entry.getUuid());
-                    String issuerName = getPlayerName(entry.getExecutorUUID());
+                    String issuerName = getPlayerName(Objects.requireNonNull(entry.getExecutorUUID()));
                     Timer kicktimer = new Timer(true);
 
                         switch (entry.getType()) {
@@ -50,6 +54,10 @@ public class LiteBansListener {
                                         @Override
                                         public void run()
                                         {
+
+                                            // Do nothing if the user can't be found.
+                                            if (user == null) return;
+
                                             plugin.getDiscordManager().getGuild().kick(Objects.requireNonNull(plugin.getDiscordManager().getGuild().getMember(user))).queue();
                                         }
                                     }, 1000);
@@ -93,7 +101,7 @@ public class LiteBansListener {
             return "console";
         }
         return Bukkit.getPlayer(UUID.fromString(uuid)) != null ?
-                Bukkit.getPlayer(UUID.fromString(uuid)).getName()
+                Objects.requireNonNull(Bukkit.getPlayer(UUID.fromString(uuid))).getName()
                 : Bukkit.getOfflinePlayer((UUID.fromString(uuid))).getName();
     }
 
