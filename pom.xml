@@ -8,7 +8,7 @@
     </properties>
 
     <groupId>be.woutzah</groupId>
-    <artifactId>LiteBansBridge</artifactId>
+    <artifactId>LitebansBridge</artifactId>
     <version>1.5</version>
 
     <repositories>
@@ -34,25 +34,25 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.16.1-R0.1-SNAPSHOT</version>
+            <version>1.20-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.gitlab.ruany</groupId>
             <artifactId>LiteBansAPI</artifactId>
-            <version>0.3.4</version>
+            <version>0.3.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.discordsrv</groupId>
             <artifactId>discordsrv</artifactId>
-            <version>1.19.1</version>
+            <version>1.26.2</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.2.0_175</version>
+            <version>5.0.0-beta.10</version>
         </dependency>
     </dependencies>
     <build>

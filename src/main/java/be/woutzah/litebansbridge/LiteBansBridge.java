@@ -1,11 +1,9 @@
 package be.woutzah.litebansbridge;
 
-import be.woutzah.litebansbridge.listeners.DiscordListener;
-import be.woutzah.litebansbridge.listeners.LiteBansListener;
-import be.woutzah.litebansbridge.managers.DiscordManager;
-import be.woutzah.litebansbridge.managers.LiteBansManager;
-import be.woutzah.litebansbridge.managers.MessageManager;
-import be.woutzah.litebansbridge.notifications.Notification;
+import be.woutzah.litebansbridge.discord.listener.DiscordListener;
+import be.woutzah.litebansbridge.litebans.listener.LiteBansListener;
+import be.woutzah.litebansbridge.discord.DiscordManager;
+import be.woutzah.litebansbridge.message.MessageManager;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -16,9 +14,7 @@ public class LiteBansBridge extends JavaPlugin {
     private DiscordListener discordListener;
     private DiscordManager discordManager;
     private LiteBansListener liteBansListener;
-    private LiteBansManager liteBansManager;
     private MessageManager messageManager;
-    private boolean discordPunishEnabled;
 
     @Override
     public void onEnable() {
@@ -35,13 +31,10 @@ public class LiteBansBridge extends JavaPlugin {
     }
 
     public void init(){
-        this.discordPunishEnabled = this.getConfig().getBoolean("enable-discord-punishments");
         this.discordListener = new DiscordListener(this);
         this.discordManager = new DiscordManager(this);
         this.liteBansListener = new LiteBansListener(this);
-        this.liteBansManager = new LiteBansManager(this);
         this.messageManager = new MessageManager(this);
-        Notification.plugin = this;
     }
 
     public void printConsoleMessage() {
@@ -71,13 +64,5 @@ public class LiteBansBridge extends JavaPlugin {
         return discordManager;
     }
 
-    public LiteBansManager getLiteBansManager() {
-        return liteBansManager;
-    }
-
     public MessageManager getMessageManager(){return messageManager;}
-
-    public boolean getDiscordPunishEnabled() {
-        return discordPunishEnabled;
-    }
 }

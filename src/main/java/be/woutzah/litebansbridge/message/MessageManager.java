@@ -1,16 +1,23 @@
-package be.woutzah.litebansbridge.managers;
+package be.woutzah.litebansbridge.message;
 
 import be.woutzah.litebansbridge.LiteBansBridge;
+import be.woutzah.litebansbridge.message.domain.MessageType;
 import be.woutzah.litebansbridge.util.DateTime;
 import be.woutzah.litebansbridge.util.TimeUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.List;
+
+import static be.woutzah.litebansbridge.message.domain.MessageType.PUNISHED_WARNED;
 
 public class MessageManager {
 
-    private LiteBansBridge plugin;
+    private final LiteBansBridge plugin;
+
+    private final EnumMap<MessageType,List<String>> messageTypeEntriesMap;
+
     private final List<String> discordWarnBanned;
     private final List<String> discordWarnMuted;
     private final List<String> litebansWarnPermaBanned;
@@ -28,6 +35,7 @@ public class MessageManager {
 
     public MessageManager(LiteBansBridge plugin) {
         this.plugin = plugin;
+        this.messageTypeEntriesMap = new EnumMap<>(MessageType.class);
         FileConfiguration config = plugin.getConfig();
         this.discordWarnBanned = config.getStringList("discord-chat-warnings.banned");
         this.discordWarnMuted = config.getStringList("discord-chat-warnings.muted");
@@ -45,7 +53,11 @@ public class MessageManager {
         this.staffWarnKicked = config.getStringList("stafflog-entry-warnings.kicked");
     }
 
+    public String getFormattedMessage()
+
     public String getDiscordWarnBanned() {
+        messageTypeEntriesMap.get(PUNISHED_WARNED);
+
         StringBuilder sb = new StringBuilder();
         for (String line : this.discordWarnBanned) {
             sb.append(line.replace("\\n", "\n"));
